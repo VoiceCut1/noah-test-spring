@@ -18,10 +18,10 @@ jobs:
         run: ./gradlew build -x test
       - name: Build Docker Image
         run: |
-          docker build -t spring-app:latest .
+          sudo docker build -t spring-app:latest .
       - name: Stop Existing Container
         run: |
-          docker rm -f spring-app || echo "No container running"
+          sudo docker rm -f spring-app || echo "No container running"
       - name: Run Docker Container
         run: |
-          docker run -d --name spring-app -p 8080:8080 spring-app:latest
+          sudo docker run -d --name spring-app -p 8080:8080 spring-app:latest
