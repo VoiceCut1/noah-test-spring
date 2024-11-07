@@ -1,0 +1,26 @@
+name: CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build with Gradle
+        run: ./gradlew build -x test
+  deploy:
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Stop existing application
+        run: pkill -f 'java -jar'
+      - name: Deploy application
+        run: java -jar build/libs/*.jar &
