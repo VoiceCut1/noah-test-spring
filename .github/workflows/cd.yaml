@@ -17,8 +17,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build -x test
       - name: Debug build outputs
-        run: ls -al build/libs/
-      - name: Stop existing application
         run: pkill -f 'java -jar' || echo "No application running"
       - name: Deploy application
-        run: java -jar build/libs/*.jar &
+        run: java -jar build/libs/test-0.0.1-SNAPSHOT.jar &
