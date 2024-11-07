@@ -16,24 +16,12 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build with Gradle
         run: ./gradlew build -x test
-      - name: Debug build outputs
-        run: pkill -f 'java -jar' || echo "No application running"
-      - name: Deploy application as a service
+      - name: Build Docker Image
         run: |
-          echo "[Unit]
-          Description=Spring Boot Application
-          After=network.target
-
-          [Service]
-          ExecStart=/usr/bin/java -jar /path/to/build/libs/test-0.0.1-SNAPSHOT.jar
-          WorkingDirectory=/path/to/build/libs
-          Restart=always
-          User=admin
-
-          [Install]
-          WantedBy=multi-user.target" | sudo tee /etc/systemd/system/spring-boot-app.service
-
-          sudo systemctl daemon-reload
-          sudo systemctl enable spring-boot-app
-          sudo systemctl restart spring-boot-app
-
+          docker build -t spring-app:latest .
+      - name: Stop Existing Container
+        run: |
+          docker rm -f spring-app || echo "No container running"
+      - name: Run Docker Container
+        run: |
+          docker run -d --name spring-app -p 8080:8080 spring-app:latest
