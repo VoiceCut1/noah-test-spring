@@ -24,4 +24,4 @@ jobs:
           sudo docker rm -f spring-app || echo "No container running"
       - name: Run Docker Container
         run: |
-          sudo docker run -d --name spring-app -p 8080:8080 spring-app:latest
+          sudo docker run -d --name spring-app --network voice-cut1 -p 8080:8080 spring-app:latest
