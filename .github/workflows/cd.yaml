@@ -16,13 +16,23 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build with Gradle
         run: ./gradlew build -x test
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-jar
+          path: build/libs/*.jar
+          
   deploy:
     runs-on: self-hosted
     needs: build
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app-jar
       - name: Stop existing application
         run: pkill -f 'java -jar' || echo "No application running"
       - name: Deploy application
-        run: java -jar build/libs/*.jar &
+        run: java -jar *.jar &
