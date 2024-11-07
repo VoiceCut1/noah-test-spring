@@ -27,4 +27,4 @@ jobs:
           sudo docker images -f "dangling=true" -q | xargs -r sudo docker rmi
       - name: Run Docker Container
         run: |
-          sudo docker run -d --name spring-app --network voice-cut1 -p 8080:8080 spring-app:latest
+          sudo docker run -d --name spring-app --network voice-cut-1 -p 8080:8080 spring-app:latest
