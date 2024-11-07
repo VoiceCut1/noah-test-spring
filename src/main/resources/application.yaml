@@ -1,14 +1,5 @@
 spring:
   application:
     name: test
-  datasource:
-    url: jdbc:mysql://mysql:3306/local_database
-    username: root
-    password: root
-  jpa:
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        format_sql: true
-    show-sql: true
+  profiles:
+    active: local
