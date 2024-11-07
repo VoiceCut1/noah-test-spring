@@ -16,8 +16,8 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build with Gradle
         run: ./gradlew build -x test
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Debug build outputs
+        run: ls -al build/libs/
       - name: Stop existing application
         run: pkill -f 'java -jar' || echo "No application running"
       - name: Deploy application
