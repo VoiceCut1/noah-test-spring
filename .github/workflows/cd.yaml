@@ -16,11 +16,6 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build with Gradle
         run: ./gradlew build -x test
-
-  deploy:
-    runs-on: self-hosted
-    needs: build
-    steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Stop existing application
