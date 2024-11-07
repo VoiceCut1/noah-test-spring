@@ -22,6 +22,9 @@ jobs:
       - name: Stop Existing Container
         run: |
           sudo docker rm -f spring-app || echo "No container running"
+      - name: Remove Dangling Images
+        run: |
+          sudo docker images -f "dangling=true" -q | xargs -r sudo docker rmi
       - name: Run Docker Container
         run: |
           sudo docker run -d --name spring-app --network voice-cut1 -p 8080:8080 spring-app:latest
