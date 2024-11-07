@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Grant execute permission for Gradle wrapper
+        run: chmod +x ./gradlew
       - name: Build with Gradle
         run: ./gradlew build -x test
   deploy:
