@@ -23,6 +23,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Stop existing application
-        run: pkill -f 'java -jar'
+        run: pkill -f 'java -jar' || echo "No application running"
       - name: Deploy application
         run: java -jar build/libs/*.jar &
